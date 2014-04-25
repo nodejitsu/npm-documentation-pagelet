@@ -6,6 +6,54 @@ var fs = require('fs')
   , npmdir = path.join(require.resolve('npm'), '../..', 'doc')
   , jitsudir = path.join(require.resolve('nodejitsu-handbook'), '..', 'content/npm');
 
+/**
+ * Representation of a single HELP document.
+ *
+ * @constructor
+ * @param {String} filename The name of the help file.
+ * @param {String} path The absolute location of the file.
+ * @param {Object} github Github user/repo of the help files.
+ * @param {Function} preprocess Optional content pre-processor.
+ * @api public
+ */
+function Help(filename, path, github, preprocess) {
+  if (!(this instanceof Help)) return new Help(filename, path, preprocess);
+
+  this.path = path;
+  this.github = github;
+  this.filename = filename;
+  this.preprocess = preprocess;
+  this.url = filename.slice(0, -3);
+  this.title = filename.slice(0, -3).replace(/\-/g, ' ');
+}
+
+/**
+ * Parse the markdown files.
+ *
+ * @param {Function} fn Callback
+ * @api public
+ */
+Help.prototype.render = function render(fn) {
+  if (this.html) return fn(undefined, this.html);
+
+  var content = fs.readFileSync(this.path, 'utf-8')
+    , help = this;
+
+  if (this.preprocess) content = this.preprocess(content);
+
+  renderme({
+    readmeFilename: this.filename,
+    readme: content
+  }, {
+    trimmed: Infinity,
+    github: this.github
+  }, function rendered(err, html) {
+    if (err) return fn(err);
+
+    fn(err, help.html = html);
+  });
+};
+
 //
 // Expose the items.
 //
@@ -22,28 +70,20 @@ fs.readdirSync(npmdir).forEach(function each(folder) {
   fs.readdirSync(path.join(npmdir, folder)).filter(function filter(file) {
     return '.md' === path.extname(file);
   }).forEach(function each(item) {
-    var title = item.slice(0, -3).replace(/\-/g, ' ')
-      , url = item.slice(0, -3);
+    var help = new Help(item, path.join(npmdir, folder, item), {
+      user: 'npm',
+      repo: 'npm'
+    }, function preprocess(content) {
+      var index;
 
-    items[folder][url] = {
-      url: url,
-      html: '',
-      title: title,
-      filename: item,
-      path: path.join(npmdir, folder, item),
-      render: function render(fn) {
-        renderme({
-          readmeFilename: this.filename,
-          readme: fs.readFileSync(this.path, 'utf-8'),
-        }, {
-          trimmed: Infinity,
-          github: {
-            user: 'npm',
-            repo: 'npm'
-          }
-        }, fn);
+      if (~(index = content.indexOf('## SEE ALSO'))) {
+        content = content.slice(0, index).trim();
       }
-    };
+
+      return content;
+    });
+
+    items[folder][help.url] = help;
   });
 });
 
@@ -53,28 +93,12 @@ fs.readdirSync(npmdir).forEach(function each(folder) {
 fs.readdirSync(jitsudir).filter(function filter(file) {
   return '.md' === path.extname(file);
 }).forEach(function each(item) {
-  var title = item.slice(0, -3).replace(/\-/g, ' ')
-    , url = item.slice(0, -3);
+  var help = new Help(item, path.join(jitsudir, item), {
+    user: 'nodejitsu',
+    repo: 'handbook/content/npm'
+  });
 
-  items.private[url] = {
-    url: url,
-    html: '',
-    title: title,
-    filename: item,
-    path: path.join(jitsudir, item),
-    render: function render(fn) {
-      renderme({
-        readmeFilename: this.filename,
-        readme: fs.readFileSync(this.path, 'utf-8')
-      }, {
-        trimmed: Infinity,
-        github: {
-          user: 'nodejitsu',
-          repo: 'handbook/content/npm'
-        }
-      }, fn);
-    }
-  };
+  items.private[help.url] = help;
 });
 
 //
