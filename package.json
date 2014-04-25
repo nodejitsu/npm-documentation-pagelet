@@ -1,0 +1,33 @@
+{
+  "name": "npm-documentation-pagelet",
+  "version": "0.0.0",
+  "description": "Display npm documentation",
+  "main": "index.js",
+  "dependencies": {
+    "npm": "~1.4.7",
+    "pagelet": "~0.3.2",
+    "renderme": "~0.0.10",
+    "nodejitsu-handbook": "git://github.com/nodejitsu/handbook",
+    "ejs": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nodejitsu/npm-documentation-pagelet.git"
+  },
+  "keywords": [
+    "npm",
+    "documentation",
+    "docs",
+    "help"
+  ],
+  "author": "Arnout Kazemier",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodejitsu/npm-documentation-pagelet/issues"
+  },
+  "homepage": "https://github.com/nodejitsu/npm-documentation-pagelet"
+}

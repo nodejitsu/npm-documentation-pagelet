@@ -1,0 +1,15 @@
+<% Object.keys(npm).forEach(function each(cat) { var items = npm[cat]; %>
+<dl>
+  <dt><%= cat %></dt>
+  <dd>
+    <ul>
+      <% Object.keys(npm[cat]).forEach(function each(title) { var item = npm[cat][title]; %>
+      <% var active = category === cat && title === name; %>
+      <li>
+        <a <%- active ? 'class="active"' : '' %> href="/docs/<%= cat %>/<%= item.url %>"><%= item.title %></a>
+      </li>
+      <%  }); %>
+    </ul>
+  </dd>
+</dl>
+<% }); %>
