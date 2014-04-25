@@ -25,7 +25,21 @@ function Help(filename, path, github, preprocess) {
   this.preprocess = preprocess;
   this.url = filename.slice(0, -3);
   this.title = filename.slice(0, -3).replace(/\-/g, ' ');
+
+  if (this.title in Help.rename) {
+    this.title = Help.rename[this.title];
+  }
 }
+
+/**
+ * Update the titles to something useful.
+ *
+ * @type {Object}
+ * @api private
+ */
+Help.rename = {
+  index: 'Getting started'
+};
 
 /**
  * Parse the markdown files.
