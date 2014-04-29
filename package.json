@@ -4,11 +4,11 @@
   "description": "Display npm documentation",
   "main": "index.js",
   "dependencies": {
-    "npm": "~1.4.7",
-    "pagelet": "~0.3.2",
-    "renderme": "~0.0.10",
+    "ejs": "1.0.x",
     "nodejitsu-handbook": "git://github.com/nodejitsu/handbook",
-    "ejs": "^1.0.0"
+    "npm": "git://github.com/npm/npm",
+    "pagelet": "0.3.x",
+    "renderme": "0.x.x"
   },
   "devDependencies": {},
   "scripts": {
