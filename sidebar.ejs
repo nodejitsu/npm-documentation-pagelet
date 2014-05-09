@@ -6,7 +6,7 @@
       <% Object.keys(npm[cat]).forEach(function each(title) { var item = npm[cat][title]; %>
       <% var active = category === cat && title === name; %>
       <li>
-        <a <%- active ? 'class="active"' : '' %> href="/docs/<%= cat %>/<%= item.url %>"><%= item.title %></a>
+        <a <%- active ? 'class="active"' : '' %> href="/help/<%= cat %>/<%= item.url %>"><%= item.title %></a>
       </li>
       <%  }); %>
     </ul>
