@@ -19,6 +19,7 @@ var fs = require('fs')
 function Help(filename, path, github, preprocess) {
   if (!(this instanceof Help)) return new Help(filename, path, preprocess);
 
+  this.html = '';
   this.path = path;
   this.github = github;
   this.filename = filename;
