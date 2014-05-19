@@ -6,9 +6,9 @@
   "dependencies": {
     "ejs": "1.0.x",
     "nodejitsu-handbook": "git://github.com/nodejitsu/handbook",
-    "npm": "~1.4.10",
-    "pagelet": "0.5.x",
-    "renderme": "0.x.x"
+    "npm": "1.4.x",
+    "pagelet": "0.6.x",
+    "renderme": "0.1.x"
   },
   "devDependencies": {},
   "scripts": {
