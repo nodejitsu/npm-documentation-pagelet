@@ -1,6 +1,6 @@
 {
   "name": "npm-documentation-pagelet",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Display npm documentation",
   "main": "index.js",
   "dependencies": {
