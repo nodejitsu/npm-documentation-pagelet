@@ -13,3 +13,7 @@ The module is released in npm and can therefor be installed using:
 ```
 npm install --save npm-documentation-pagelet
 ```
+
+To see this module in action check out:
+
+http://browsenpm.org/help

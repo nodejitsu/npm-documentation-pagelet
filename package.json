@@ -1,12 +1,12 @@
 {
   "name": "npm-documentation-pagelet",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Display npm documentation",
   "main": "index.js",
   "dependencies": {
     "ejs": "1.0.x",
     "nodejitsu-handbook": "git://github.com/nodejitsu/handbook",
-    "npm": "1.4.x",
+    "npm": "2.1.x",
     "pagelet": "0.8.x",
     "renderme": "0.1.x"
   },
